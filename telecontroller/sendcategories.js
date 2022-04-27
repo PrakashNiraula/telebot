@@ -1,7 +1,9 @@
 var db=require('../db/category_controller')
+var sendcat=require('./sendsubcategories')
 
 let reply={};
 reply.sendhome=async(bot,msg)=>{
+   
    var res=await db.getallcategories();
    let inline_keyboard=[];
    for(let i=0;i<res.length;i++){
