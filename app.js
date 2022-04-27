@@ -8,7 +8,8 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 const categoryrouter=require("./routes/category")
-const subcatrouter=require('./routes/subcategory')
+const subcatrouter=require('./routes/subcategory');
+const productrouter=require('./routes/product');
 
 require('./telereply')
 var app = express();
@@ -30,6 +31,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/category', categoryrouter);
 app.use('/subcategory', subcatrouter);
+app.use('/product', productrouter);
 //app.use("/test",)
 
 // catch 404 and forward to error handler

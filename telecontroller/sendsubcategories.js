@@ -1,6 +1,7 @@
 var db=require('../db/subcategory_controller')
 var sendcat=require('./sendcategories')
 var dbcat=require('../db/category_controller')
+var sendProducts=require('./sendproducts');
 
 let reply={};
 
@@ -41,11 +42,7 @@ if(myArray.length==2){
       var message=" Displaying "+res[0].name;;
       bot.editMessageText(message, opts);
 }else if(myArray.length==3){
-  
-  console.log(callback_query.data);
-  
-
-
+  sendProducts.fetchProducts(bot,callback_query);
 
 }else if(myArray[0]=='back'){
 //todo go back code how to?
