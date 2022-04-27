@@ -1,5 +1,5 @@
 var db=require('../db/category_controller')
-var sendcat=require('./sendsubcategories')
+
 
 let reply={};
 reply.sendhome=async(bot,msg)=>{
