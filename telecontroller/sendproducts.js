@@ -16,7 +16,30 @@ reply.fetchProducts=async (bot,callbackQuery)=>{
     var subcatvalue=subcatarray[1];
 
 
-    var result=await product_controller.getProductsbyId();
+     var res=await product_controller.getProductsbycatnsubcat(catvalue,subcatvalue);
+    //console.log(res);
+    
+     //console.log(result);
+    let inline_keyboard=[];
+    for(let i=0;i<res.length;i++){
+        let button={};
+        let buttonwraper=[];
+        button.text=res[i].name+" Price: Usd "+res[i].price;
+        button.callback_data="pid:"+res[i].id;
+       // button.callback_data="cat_id="+myArray[1]+":subcat_id="+res[i].subcat_id;
+        buttonwraper.push(button);
+       inline_keyboard[i]=buttonwraper
+     }
+     const opts = {
+        chat_id: msg.chat.id,
+        message_id: msg.message_id,
+        reply_markup: {
+          inline_keyboard: inline_keyboard
+        }
+      };
+      var message=" Products List ";
+      bot.editMessageText(message, opts);
+
 
    
 

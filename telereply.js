@@ -28,6 +28,13 @@ bot.on('message',async (msg) => {
 })
 
 bot.on('callback_query', function onCallbackQuery(callbackQuery) {
+  const msg = callbackQuery.message;
+    let data=callbackQuery.data;
+    const myArray = data.split(":");
+    if(myArray[0]=="pid"){
+      console.log("product selected")
+    return;
+    }
   sendsubcat.sendsubcategories(callbackQuery,bot)
     
 })
