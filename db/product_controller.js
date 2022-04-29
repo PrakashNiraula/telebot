@@ -3,7 +3,7 @@ let db={}
 
 db.getallProducts=()=>{
     return new Promise((resolve,reject)=>{
-        config.query("select id,cat_id,subcat_id,name,price,status from products",(err,results)=>{
+        config.query("select id,cat_id,subcat_id,name,price,status from products where status=? ",["instock"],(err,results)=>{
             if(err){
                 return reject(err);
             } 
@@ -26,9 +26,9 @@ db.getProductsbycatnsubcat=(catid,subcatid)=>{
 }
 
 
-db.createProduct=(catid,subcatid,details,price)=>{
+db.createProduct=(cat_id,subcat_id,name,details,price)=>{
     return new Promise((resolve,reject)=>{
-        config.query("insert into products values(Null,?,?,?,?,?)",[catid,subcatid,details,price,'','instock'],(err,results)=>{
+        config.query("insert into products values(Null,?,?,?,?,?,?,?)",[cat_id,subcat_id,name,details,price,'0','instock'],(err,results)=>{
             if(err){
                 return reject(err);
             } 

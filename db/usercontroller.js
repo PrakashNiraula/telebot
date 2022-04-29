@@ -15,5 +15,18 @@ db.loginUser=(username,password)=>{
 }
 
 
+db.addbalance=(amount,userid)=>{
+    return new Promise((resolve,reject)=>{
+        pool.query("update users set balance=balance+? where id=?",[amount,userid],(err,results)=>{
+            if(err){
+                return reject(err);
+            } 
+            return resolve(results);
+         }) 
+ })
+
+}
+
+
 
 module.exports=db;
