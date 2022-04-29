@@ -1,5 +1,6 @@
 const TelegramBot = require('node-telegram-bot-api');
-const token = '5342231228:AAHYB9aYGkfwfMnuOOWpAS048JZ5hkgEdKY';
+const token = '5342231228:AAH3bg9l3lR_28HHm0qgHoYsZCa21kdV5L0';
+//5342231228:AAHYB9aYGkfwfMnuOOWpAS048JZ5hkgEdKY
 const bot = new TelegramBot(token, {polling: true});
 var sendcat=require('./telecontroller/sendcategories')
 var sendsubcat=require('./telecontroller/sendsubcategories')
@@ -7,6 +8,7 @@ console.log("Starting.....");
 
 
 bot.on('message',async (msg) => {
+  console.log(msg);
     const chatId = msg.chat.id;
     if(msg.text=="🏡 Home 🏡"){
       sendcat.sendhome(bot,msg);
