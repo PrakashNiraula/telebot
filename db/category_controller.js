@@ -11,9 +11,7 @@ db.getallcategories=()=>{
            return resolve(results);
         }) 
     })
-   
-    
-    }
+ }
 
 
     

@@ -41,12 +41,6 @@ reply.fetchProducts=async (bot,callbackQuery)=>{
       bot.editMessageText(message, opts);
 
 
-   
-
-
-
-    
-
     
 }
 
