@@ -4,14 +4,11 @@ var dbcat=require('../db/category_controller')
 var sendProducts=require('./sendproducts');
 
 let reply={};
-
-
 reply.sendsubcategories=async (callback_query,bot)=>{
     const msg = callback_query.message;
     let cat_id=callback_query.data;
    
     const myArray = cat_id.split("=");
-    //console.log(myArray.length);
     var category=0;
     var subcategory=0;
 if(myArray.length==2){

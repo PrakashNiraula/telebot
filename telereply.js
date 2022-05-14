@@ -5,10 +5,28 @@ const bot = new TelegramBot(token, { polling: true });
 var sendcat = require("./telecontroller/sendcategories");
 var sendsubcat = require("./telecontroller/sendsubcategories");
 var buyproduct=require('./telecontroller/buyproduct')
+var confirmPayment=require('./telecontroller/confirmpurchase')
+
+var usercontroller=require('./db/usercontroller');
 console.log("Starting.....");
 
 bot.on("message", async (msg) => {
-  console.log(msg);
+//check incomming and add user to db if needed
+   console.log(msg);
+
+var res= await usercontroller.getuserbyNumber(msg.from.id);
+if(res.length==1){
+  showmenu(bot,msg);
+}else{
+  var res2=await usercontroller.createuser(msg.from.id,msg.from.first_name);
+  if(res2){
+    showmenu(bot,msg)
+  }
+}
+});
+
+showmenu=async (bot,msg)=>{
+
   const chatId = msg.chat.id;
   if (msg.text == "🏡 Home 🏡") {
     sendcat.sendhome(bot, msg);
@@ -25,13 +43,19 @@ bot.on("message", async (msg) => {
   };
 
   bot.sendMessage(msg.chat.id, "Hello", opts);
-});
+
+
+}
 
 bot.on("callback_query", function onCallbackQuery(callbackQuery) {
-  console.log(callbackQuery);
+ // console.log(callbackQuery);
   const msg = callbackQuery.message;
   let data = callbackQuery.data;
   const myArray = data.split(":");
+  if(myArray[0] == "payment"){
+   confirmPayment.confirmPayment(myArray[1],myArray[2],callbackQuery,bot);
+
+  }
   if (myArray[0] == "pid") {
     // console.log("product selected");
     // return;
@@ -55,9 +79,7 @@ bot.on("callback_query", function onCallbackQuery(callbackQuery) {
   bot.editMessageText(message, opts);
   }
   if(myArray[0] =="confirm"){
-  buyproduct.buy("9869804695",myArray[2],bot,callbackQuery)
-
-
+  buyproduct.buy(msg.from.id,myArray[2],bot,callbackQuery)
   }
   sendsubcat.sendsubcategories(callbackQuery, bot);
 });

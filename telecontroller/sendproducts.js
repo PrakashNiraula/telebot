@@ -39,8 +39,6 @@ reply.fetchProducts=async (bot,callbackQuery)=>{
       };
       var message=" Products List ";
       bot.editMessageText(message, opts);
-
-
     
 }
 

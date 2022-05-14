@@ -1,77 +1,69 @@
-var usercontroller=require('../db/usercontroller');
-var productcontroller=require('../db/product_controller');
-var client=require('../payment/coinbase');
-var coinbase = require('coinbase-commerce-node');
-const { response } = require('express');
-const res = require('express/lib/response');
+var usercontroller = require("../db/usercontroller");
+var productcontroller = require("../db/product_controller");
+var client = require("../payment/coinbase");
+var coinbase = require("coinbase-commerce-node");
+const { response } = require("express");
+const res = require("express/lib/response");
 var Charge = coinbase.resources.Charge;
 
-let buyproduct={};
 
-buyproduct.buy=async (number,productid,bot,callback_query)=>{
-    console.log(number,productid);
-//var result=
-var result=await usercontroller.getuserbyNumber(number);
-var result2=await productcontroller.getProductsbyId(productid);
+let buyproduct = {};
 
-if(result[0].balance>=result2[0].price){
+buyproduct.buy = async (number, productid, bot, callback_query) => {
+  var result = await usercontroller.getuserbyNumber(number);
+  var result2 = await productcontroller.getProductsbyId(productid);
+  var data = callback_query.data;
+  var myarray = data.split(":");
+  console.log(result2[0].price);
+  if (myarray[0] == "confirm") {
+    console.log("Showing address to pay");
 
-}else{
-    var data=callback_query.data;
-    var myarray=data.split(":")
-    if(myarray[0]=="confirm"){
-        console.log("Showing address to pay");
+    var firstChargeObj = new Charge({
+      description: result2.name,
+      metadata: {
+        customer_id: result.number,
+        customer_name: result.first_name,
+      },
+      local_price: {
+        amount: result2[0].price,
+        currency: "USD",
+      },
 
-        var firstChargeObj = new Charge({
-            "description": "Test product description",
-            "metadata": {
-                "customer_id": "id_1",
-                "customer_name": "Test Name"
-            },
-            "name": "Product A",
-            "payments": [],
-            "pricing_type": "no_price"
-        });
-        firstChargeObj.save(async (err,response)=>{
-            if(err){
-                console.log(error);
-            }
-            console.log(response);
-            const msg = callback_query.message
-            let inline_keyboard=[];
-            const myJSON = JSON.stringify(response.addresses);
-            // for(let i=0;i<1;i++){
-            //     let button={};
-            //     let buttonwraper=[];
-             
-             
-            //     button.text="Here"+myJSON;
-            //     button.callback_data="callback data";
-            //     buttonwraper.push(button);
-            //    inline_keyboard[i]=buttonwraper
-            //  }
-            const opts = {
-                chat_id: msg.chat.id,
-                message_id: msg.message_id,
-                
-              };
-              var message=" Please pay to address below to complete your purchase \n "+myJSON;
-              bot.editMessageText(message, opts);
+      name: result2.name,
+      payments: [],
+      pricing_type: "fixed_price",
+    });
 
-        })
+    firstChargeObj.save(async (error, response) => {
+      let inline_keyboard = [];
+      let button = {};
+      let buttonwraper = [];
+      button.text = " Pay ";
+      button.url=response.hosted_url;
+      button.callback_data = "payment";
+      buttonwraper.push(button);
+      inline_keyboard[inline_keyboard.length] = buttonwraper;
+      button = {};
+      buttonwraper = [];
+      button.text = " Refresh ";
+      //button.url=response.hosted_url;
+      button.callback_data = "payment:"+productid+":"+response.id;
+      buttonwraper.push(button);
+      inline_keyboard[inline_keyboard.length] = buttonwraper;
 
-        //client.Charge(firstChargeObj)
-        
+      const opts = {
+        chat_id:  callback_query.message.chat.id,
+        message_id:callback_query.message.message_id,
+        reply_markup: {
+          inline_keyboard: inline_keyboard,
+        },
+      };
+      var message =
+        " Please click on Pay button to pay.\n You may close the page after the successful payment but do not navigare away from here.\n Press Refresh Button to confirm your payment once your payment is successful. \n";
+      bot.editMessageText(message, opts);
+    });
 
+  }
 
-
-    }
-
-
-
-}
-// console.log(result);
-// console.log(result2);
-
-}
-module.exports=buyproduct;
+};
+module.exports = buyproduct;

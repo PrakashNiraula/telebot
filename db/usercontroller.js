@@ -1,3 +1,5 @@
+const res = require("express/lib/response");
+const { DATE } = require("mysql/lib/protocol/constants/types");
 const pool = require("../db/index");
 let db = {};
 
@@ -35,7 +37,7 @@ db.getuserbyNumber = (number) => {
   return new Promise((resolve, reject) => {
     pool.query(
       "select * from users where number=?",
-      [ number],
+      [number],
       (err, results) => {
         if (err) {
           return reject(err);
@@ -46,31 +48,37 @@ db.getuserbyNumber = (number) => {
   });
 };
 
-db.createuser = (phone, password) => {
+db.createuser = async (phone, fname) => {
   return new Promise((resolve, reject) => {
     pool.query(
       "select * from users where number=?",
       [phone],
-      (err, results) => {
-        if (err) {
-          return reject(err);
+      async (error, result) => {
+        if (error) {
+          console.log(error);
         }
-        if (results.length == 0) {
-          return new Promise((resolve, reject) => {
-            pool.query(
-              "insert into users values(Null,?,?,?,?)",
-              [phone, "0", password, "user"],
-              (err, results) => {
-                if (err) {
-                  return reject(err);
-                }
-                return resolve(results);
-              }
-            );
-          });
+        console.log(result);
+        if (result.length == 1) {
+          return reject("Error" + "User exists");
         } else {
-          return reject("Phone number already exists");
+          //2022-05-02 16:34:56
+          var currentDate = new Date();
+          var date = currentDate.getDate();
+          let month = currentDate.getMonth()+1;
+          var year = currentDate.getFullYear();
+          var time=currentDate.getHours()+":"+currentDate.getMinutes()+":"+currentDate.getSeconds();
+          var monthDateYear = year+"-"+month + "-" + date + " " +time;
+          pool.query(
+            "insert into users values(Null,?,?,?,?,?,?)",
+            [phone, fname, "0", phone, "user",monthDateYear],
+            async (error, response) => {
+              return resolve(response);
+            }
+          );
+   
         }
+
+       
       }
     );
   });
