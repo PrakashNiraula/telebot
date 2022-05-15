@@ -29,6 +29,12 @@ reply.fetchProducts=async (bot,callbackQuery)=>{
        // button.callback_data="cat_id="+myArray[1]+":subcat_id="+res[i].subcat_id;
         buttonwraper.push(button);
        inline_keyboard[i]=buttonwraper
+       button = {};
+      buttonwraper = [];
+      button.text = "Go To Home ";
+      button.callback_data = "gotoHome:";
+      buttonwraper.push(button);
+      inline_keyboard[inline_keyboard.length] = buttonwraper;
      }
      const opts = {
         chat_id: msg.chat.id,

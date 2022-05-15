@@ -23,12 +23,12 @@ if(myArray.length==2){
         buttonwraper.push(button);
        inline_keyboard[i]=buttonwraper
      }
-     let button={};
-        let buttonwraper=[];
-        button.text="Back"
-        button.callback_data="back";
-        buttonwraper.push(button);
-       inline_keyboard[inline_keyboard.length]=buttonwraper
+     button = {};
+      buttonwraper = [];
+      button.text = "Go To Home ";
+      button.callback_data = "gotoHome:";
+      buttonwraper.push(button);
+      inline_keyboard[inline_keyboard.length] = buttonwraper;
      const opts = {
         chat_id: msg.chat.id,
         message_id: msg.message_id,

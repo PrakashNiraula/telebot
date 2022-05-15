@@ -52,7 +52,6 @@ buyproduct.confirmPayment = async (productid, chargeid, callbackQuery, bot) => {
       response.created_at +
       "\n Expires at :" +
       response.expires_at+
-      "\n Payment :"+JSON.stringify(response.payments)+
       "\n Click on link above to pay. Once payment is completed press refresh button."+
       "\n Your payment status will be shown here. \n Once the payment is completed your product will be delivered immedietly. \n Please do not navigate away from here if you have completed the payment.";
     count++;

@@ -8,6 +8,8 @@ var buyproduct=require('./telecontroller/buyproduct')
 var confirmPayment=require('./telecontroller/confirmpurchase')
 
 var usercontroller=require('./db/usercontroller');
+var userProfile=require('./telecontroller/userprofile');
+
 console.log("Starting.....");
 
 bot.on("message", async (msg) => {
@@ -31,6 +33,9 @@ showmenu=async (bot,msg)=>{
   if (msg.text == "🏡 Home 🏡") {
     sendcat.sendhome(bot, msg);
     return;
+  }else if(msg.text=="🧑‍🎤 Profile 🧑‍🎤"){
+    userProfile.getProfie(bot,msg)
+    return;
   }
 
   const opts = {
@@ -52,6 +57,10 @@ bot.on("callback_query", function onCallbackQuery(callbackQuery) {
   const msg = callbackQuery.message;
   let data = callbackQuery.data;
   const myArray = data.split(":");
+  if(myArray[0] == "loadmoney"){
+    
+
+  }
   if(myArray[0] == "gotoHome"){
     sendcat.sendhome(bot, callbackQuery.message);
    
