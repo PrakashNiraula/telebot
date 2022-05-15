@@ -48,10 +48,14 @@ showmenu=async (bot,msg)=>{
 }
 
 bot.on("callback_query", function onCallbackQuery(callbackQuery) {
- // console.log(callbackQuery);
+ console.log(callbackQuery);
   const msg = callbackQuery.message;
   let data = callbackQuery.data;
   const myArray = data.split(":");
+  if(myArray[0] == "gotoHome"){
+    sendcat.sendhome(bot, callbackQuery.message);
+   
+   }
   if(myArray[0] == "payment"){
    confirmPayment.confirmPayment(myArray[1],myArray[2],callbackQuery,bot);
 

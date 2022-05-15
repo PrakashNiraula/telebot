@@ -6,7 +6,6 @@ const { response } = require("express");
 const res = require("express/lib/response");
 var Charge = coinbase.resources.Charge;
 
-
 let buyproduct = {};
 
 buyproduct.buy = async (number, productid, bot, callback_query) => {
