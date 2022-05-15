@@ -6,9 +6,10 @@ var sendcat = require("./telecontroller/sendcategories");
 var sendsubcat = require("./telecontroller/sendsubcategories");
 var buyproduct=require('./telecontroller/buyproduct')
 var confirmPayment=require('./telecontroller/confirmpurchase')
-
+var loadbalance=require('./telecontroller/loadbalance')
 var usercontroller=require('./db/usercontroller');
 var userProfile=require('./telecontroller/userprofile');
+var confirmbalance=require('./telecontroller/confirmbalance');
 
 console.log("Starting.....");
 
@@ -57,8 +58,11 @@ bot.on("callback_query", function onCallbackQuery(callbackQuery) {
   const msg = callbackQuery.message;
   let data = callbackQuery.data;
   const myArray = data.split(":");
+  if(myArray[0]=="load"){
+    confirmbalance.confirm(callbackQuery.message,bot,myArray[1])
+  }
   if(myArray[0] == "loadmoney"){
-    
+    loadbalance.loadMenu(callbackQuery.message,bot);
 
   }
   if(myArray[0] == "gotoHome"){
