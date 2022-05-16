@@ -1,4 +1,5 @@
 var coinbase = require("coinbase-commerce-node");
+const res = require("express/lib/response");
 var Charge = coinbase.resources.Charge;
 
 
@@ -31,11 +32,11 @@ confirmbalance.confirm=async(msg,bot,amount)=>{
         let inline_keyboard = [];
         let button = {};
         let buttonwraper = [];
-    //     button.text = " Refresh ";
-    //    button.callback_data =
-    //      "load:"+ count;
-    //     buttonwraper.push(button);
-    //     inline_keyboard[inline_keyboard.length] = buttonwraper;
+        button.text = " Refresh ";
+       button.callback_data =
+         "updatebalance:"+ amount+":"+response.id;
+        buttonwraper.push(button);
+        inline_keyboard[inline_keyboard.length] = buttonwraper;
     
         const opts = {
           chat_id: msg.chat.id,

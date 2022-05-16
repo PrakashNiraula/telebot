@@ -17,7 +17,7 @@ buyproduct.confirmPayment = async (productid, chargeid, callbackQuery, bot) => {
   Charge.retrieve(chargeid, function (error, response) {
     count++;
     // if(response.payments.size=0){
-     //  deliverproduct.deliver(productid,chargeid,callbackQuery,bot)
+       //deliverproduct.deliver(productid,chargeid,callbackQuery,bot)
     //     return;
     // }
 

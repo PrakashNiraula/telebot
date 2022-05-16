@@ -10,6 +10,8 @@ var loadbalance=require('./telecontroller/loadbalance')
 var usercontroller=require('./db/usercontroller');
 var userProfile=require('./telecontroller/userprofile');
 var confirmbalance=require('./telecontroller/confirmbalance');
+var termsandconditions=require('./telecontroller/termsandconditions')
+var updatebalance=require('./telecontroller/updatebalance');
 
 console.log("Starting.....");
 
@@ -37,6 +39,9 @@ showmenu=async (bot,msg)=>{
   }else if(msg.text=="🧑‍🎤 Profile 🧑‍🎤"){
     userProfile.getProfie(bot,msg)
     return;
+  }else if(msg.text=="📝 Terms and conditions 📝"){
+termsandconditions.sendterms(bot,msg)
+    return;
   }
 
   const opts = {
@@ -58,6 +63,9 @@ bot.on("callback_query", function onCallbackQuery(callbackQuery) {
   const msg = callbackQuery.message;
   let data = callbackQuery.data;
   const myArray = data.split(":");
+  if(myArray[0]=="updatebalance"){
+updatebalance.update(myArray[1],myArray[2],bot,callbackQuery)
+  }
   if(myArray[0]=="load"){
     confirmbalance.confirm(callbackQuery.message,bot,myArray[1])
   }
