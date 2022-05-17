@@ -36,7 +36,7 @@ userprofie.getProfie = async (bot, callbackQuery) => {
       inline_keyboard: inline_keyboard,
     },
   };
-
+  //var message = " ❌❌❌❌❌❌❌❌❌ \n\n";
   var message =
     "User Profile:\n" +
     " ❌❌❌❌❌❌❌❌❌ \n\n" +
