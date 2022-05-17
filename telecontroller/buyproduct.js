@@ -38,7 +38,7 @@ buyproduct.buy = async (number, productid, bot, callback_query) => {
       let button = {};
       let buttonwraper = [];
       button.text = " Pay ";
-      button.url=response.hosted_url;
+      button.url = response.hosted_url;
       button.callback_data = "payment";
       buttonwraper.push(button);
       inline_keyboard[inline_keyboard.length] = buttonwraper;
@@ -46,13 +46,13 @@ buyproduct.buy = async (number, productid, bot, callback_query) => {
       buttonwraper = [];
       button.text = " Refresh ";
       //button.url=response.hosted_url;
-      button.callback_data = "payment:"+productid+":"+response.id;
+      button.callback_data = "payment:" + productid + ":" + response.id;
       buttonwraper.push(button);
       inline_keyboard[inline_keyboard.length] = buttonwraper;
 
       const opts = {
-        chat_id:  callback_query.message.chat.id,
-        message_id:callback_query.message.message_id,
+        chat_id: callback_query.message.chat.id,
+        message_id: callback_query.message.message_id,
         reply_markup: {
           inline_keyboard: inline_keyboard,
         },
@@ -61,8 +61,6 @@ buyproduct.buy = async (number, productid, bot, callback_query) => {
         " Please click on Pay button to pay.\n You may close the page after the successful payment but do not navigare away from here.\n Press Refresh Button to confirm your payment once your payment is successful. \n";
       bot.editMessageText(message, opts);
     });
-
   }
-
 };
 module.exports = buyproduct;
