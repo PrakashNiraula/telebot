@@ -14,7 +14,7 @@ buyproduct.buy = async (number, productid, bot, callback_query) => {
   var data = callback_query.data;
   var myarray = data.split(":");
   console.log(result2[0].price);
-  if (myarray[0] == "confirm") {
+  if (myarray[0] == "confirmcoinbase") {
     console.log("Showing address to pay");
 
     var firstChargeObj = new Charge({

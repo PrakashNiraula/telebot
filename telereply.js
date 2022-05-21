@@ -12,6 +12,7 @@ var userProfile = require("./telecontroller/userprofile");
 var confirmbalance = require("./telecontroller/confirmbalance");
 var termsandconditions = require("./telecontroller/termsandconditions");
 var updatebalance = require("./telecontroller/updatebalance");
+const purchaseproduct = require("./telecontroller/purchaseproduct");
 
 console.log("Starting.....");
 
@@ -63,9 +64,8 @@ bot.on("callback_query", function onCallbackQuery(callbackQuery) {
   const msg = callbackQuery.message;
   let data = callbackQuery.data;
   const myArray = data.split(":");
-  if(myArray[0]=="gotoProfile"){
+  if (myArray[0] == "gotoProfile") {
     userProfile.getProfie(bot, callbackQuery.message);
-
   }
   if (myArray[0] == "updatebalance") {
     updatebalance.update(myArray[1], myArray[2], bot, callbackQuery);
@@ -76,9 +76,19 @@ bot.on("callback_query", function onCallbackQuery(callbackQuery) {
   if (myArray[0] == "loadmoney") {
     loadbalance.loadMenu(callbackQuery.message, bot);
   }
+  if (myArray[0] == "confirmwallet") {
+   
+    //update pay only using wallet
+    purchaseproduct.purchase(myArray[2], bot, callbackQuery);
+  }
   if (myArray[0] == "gotoHome") {
     sendcat.sendhome(bot, callbackQuery.message);
   }
+  if(myArray[0] == "confirmcoinbase"){
+    console.log("confirming coinbase")
+
+    buyproduct.buy(msg.from.id, myArray[2], bot, callbackQuery);
+   }
   if (myArray[0] == "payment") {
     confirmPayment.confirmPayment(myArray[1], myArray[2], callbackQuery, bot);
   }
@@ -90,10 +100,21 @@ bot.on("callback_query", function onCallbackQuery(callbackQuery) {
     let inline_keyboard = [];
     let button = {};
     let buttonwraper = [];
-    button.text = "Confirm";
-    button.callback_data = "confirm:" + "Product id: " + myArray[1];
+
+    button.text = "Confirm Using Coinbase";
+    button.callback_data = "confirmcoinbase:" + "Product id: " + myArray[1];
     buttonwraper.push(button);
     inline_keyboard[inline_keyboard.length] = buttonwraper;
+
+     button = {};
+     buttonwraper = [];
+
+  button.text = "Confirm Pay From Wallet";
+    button.callback_data = "confirmwallet:" + "Product id: " + myArray[1];
+     buttonwraper.push(button);
+    inline_keyboard[inline_keyboard.length] = buttonwraper;
+
+
     const opts = {
       chat_id: msg.chat.id,
       message_id: msg.message_id,
@@ -101,12 +122,12 @@ bot.on("callback_query", function onCallbackQuery(callbackQuery) {
         inline_keyboard: inline_keyboard,
       },
     };
-    var message = " Do you want to confirm this purchase?? ";
+    var message = " Do you want to confirm this purchase??"+ " Product id: " + myArray[1];
     bot.editMessageText(message, opts);
   }
-  if (myArray[0] == "confirm") {
-    buyproduct.buy(msg.from.id, myArray[2], bot, callbackQuery);
-  }
+ 
+
+  
   sendsubcat.sendsubcategories(callbackQuery, bot);
 });
 module.exports = bot;
