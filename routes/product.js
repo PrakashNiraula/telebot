@@ -10,6 +10,7 @@ router.route('/')
        
         //res.json(await db.getallcategories())  
         const res2=await product_controller.getallProducts();
+        
        res.json(res2);
     } catch (error) {
         next(error)
@@ -20,8 +21,8 @@ router.route('/')
 
 .post(async(req,res,next)=>{
     try {
-        const res2=await product_controller.createProduct(req.body.cat_id,req.body.subcat_id,req.body.name,req.body.details,req.body.price);
-       res.json(res2);
+        const res2=await product_controller.createProduct(req.body.cat_id,req.body.subcat_id,req.body.name,req.body.details,req.body.price,req.body.isinstant);
+       res.json(res2); 
     } catch (error) {
         next(error)
         
