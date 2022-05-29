@@ -10,6 +10,7 @@ var usersRouter = require('./routes/users');
 const categoryrouter=require("./routes/category")
 const subcatrouter=require('./routes/subcategory');
 const productrouter=require('./routes/product');
+const cors = require('cors');
 
 require('./telereply')
 var app = express();
@@ -17,6 +18,7 @@ var app = express();
 
 
 
+app.use(cors('*'));
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -32,6 +34,7 @@ app.use('/users', usersRouter);
 app.use('/category', categoryrouter);
 app.use('/subcategory', subcatrouter);
 app.use('/product', productrouter);
+
 //app.use("/test",)
 
 // catch 404 and forward to error handler

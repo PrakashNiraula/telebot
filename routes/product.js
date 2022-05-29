@@ -20,6 +20,7 @@ router.route('/')
 
 .post(async(req,res,next)=>{
     try {
+        console.log(req);
         const res2=await product_controller.createProduct(req.body.cat_id,req.body.subcat_id,req.body.name,req.body.details,req.body.price);
        res.json(res2);
     } catch (error) {
