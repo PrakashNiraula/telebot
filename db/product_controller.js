@@ -26,9 +26,9 @@ db.getProductsbycatnsubcat=(catid,subcatid)=>{
 }
 
 
-db.createProduct=(cat_id,subcat_id,name,details,price)=>{
+db.createProduct=(cat_id,subcat_id,name,details,price,isinstant)=>{
     return new Promise((resolve,reject)=>{
-        config.query("insert into products values(Null,?,?,?,?,?,?,?)",[cat_id,subcat_id,name,details,price,'0','instock'],(err,results)=>{
+        config.query("insert into products values(Null,?,?,?,?,?,?,?,'',?)",[cat_id,subcat_id,name,details,price,'0','instock',isinstant],(err,results)=>{
             if(err){
                 return reject(err);
             } 

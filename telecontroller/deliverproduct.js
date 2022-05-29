@@ -8,7 +8,7 @@ let deliverproduct = {};
 
 deliverproduct.deliver = async (productid, chargeid, callbackQuery, bot) => {
   var userres = await userController.getuserbyNumber(
-    callbackQuery.message.from.id
+    callbackQuery.from.id
   );
   var productres = await productController.makesales(
     productid,

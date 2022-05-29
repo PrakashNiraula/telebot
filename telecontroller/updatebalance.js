@@ -1,12 +1,22 @@
 var coinbase = require("coinbase-commerce-node");
 const res = require("express/lib/response");
+const verifytopup = require("./verifytopup");
 var Charge = coinbase.resources.Charge;
+var topup=require('./verifytopup');
 
 let updatebalance = {};
 let count = 0;
 
 updatebalance.update = async (amount, chargeid, bot, callback_query) => {
   Charge.retrieve(chargeid, function (error, response) {
+    
+//verifytopup.verify(amount,response,bot,callback_query);
+
+
+
+
+
+
     count++;
     let inline_keyboard = [];
     let button = {};
@@ -26,7 +36,7 @@ updatebalance.update = async (amount, chargeid, bot, callback_query) => {
 
     var message =
       "Payment created. Waiting for confirmation.\n Status: " +
-      response.timeline +
+      JSON.stringify(response.timeline[0]) +
       "\n Charge id:" +
       response.id +
       "\n URL: " +

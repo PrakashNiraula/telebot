@@ -33,6 +33,21 @@ db.addbalance = (amount, userid) => {
   });
 };
 
+db.decreaseBalance = (amount, userid) => {
+  return new Promise((resolve, reject) => {
+    pool.query(
+      "update users set balance=balance-? where id=?",
+      [amount, userid],
+      (err, results) => {
+        if (err) {
+          return reject(err);
+        }
+        return resolve(results);
+      }
+    );
+  });
+};
+
 db.getuserbyNumber = (number) => {
   return new Promise((resolve, reject) => {
     pool.query(
