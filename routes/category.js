@@ -17,17 +17,17 @@ router.get("/",async(req,res,next)=>{
     }
 })
 
-// router.post("/",async(req,res,next)=>{
+router.post("/",async(req,res,next)=>{
 
-//     try {
+    try {
       
-//         const res2=await category_controller.createcategory(req.body.name);
-//        res.json(res2);
-//     } catch (error) {
-//         next(error)
+        const res2=await category_controller.createcategory(req.body.name);
+       res.json(res2);
+    } catch (error) {
+        next(error)
         
-//     }
-// })
+    }
+})
 
 // router.delete("/",async(req,res,next)=>{
 
