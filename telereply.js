@@ -1,6 +1,6 @@
 const TelegramBot = require("node-telegram-bot-api");
-//5342231228:AAH3bg9l3lR_28HHm0qgHoYsZCa21kdV5L0
-const token = "5312045191:AAFdXMntO3bIdLhpygmWKESzbp5MlRn2DJo";
+const token ="5342231228:AAH3bg9l3lR_28HHm0qgHoYsZCa21kdV5L0";
+//const token = "5312045191:AAFdXMntO3bIdLhpygmWKESzbp5MlRn2DJo";
 const bot = new TelegramBot(token, { polling: true });
 var sendcat = require("./telecontroller/sendcategories");
 var sendsubcat = require("./telecontroller/sendsubcategories");
