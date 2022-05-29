@@ -31,7 +31,7 @@ db.getsubcategorybyCategory=(id)=>{
 
 
 db.createsubCategory=(catid,name)=>{
-
+console.log(catid);
     return new Promise((resolve,reject)=>{
         config.query("insert into subcategory values(Null,?,?)",[catid,name],(err,results)=>{
             if(err){

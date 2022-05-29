@@ -15,7 +15,7 @@ router.route('/')
 
 .post(async (req,res,next)=>{
     try {
-        res.json(await db.createsubCategory(req.body.catid,req.body.subcatname));
+        res.json(await db.createsubCategory(req.body.cat_id,req.body.name));
     } catch (error) {
         next(error)
         
@@ -24,11 +24,11 @@ router.route('/')
 })
 
 
-router.route('/:subcatid')
+router.route('/:subcat_id')
 
 .delete(async (req,res,next)=>{
     try {
-        res.json(await db.deletesubCategory(req.params.subcatid))
+        res.json(await db.deletesubCategory(req.params.subcat_id))
         
     } catch (error) {
         res.json(error)
