@@ -64,7 +64,7 @@ router.get("/:catid",async(req,res,next)=>{
 //     }
 // })
 
-router.delete("/category/:cat_id",async(req,res,next)=>{
+router.delete("/:cat_id",async(req,res,next)=>{
 
     try {
       

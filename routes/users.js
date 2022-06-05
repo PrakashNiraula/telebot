@@ -8,12 +8,9 @@ router.post("/login", async function (req, res, next) {
   const phone = req.body.phone;
   const password = req.body.password;
   try {
-    //res.json(await db.getallcategories())
     var res2 = await usercontroller.loginUser(phone, password);
-
-    //console.log(res2);
     if (res2.length == 1) {
-      //res.json("Login Successful")
+      
 
       let payload = {
         number: res2[0].number,
