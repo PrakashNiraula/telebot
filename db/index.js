@@ -6,7 +6,7 @@ connectionLimit:10,
 host:'localhost',
 user:'root',
 password:'',
-database:'test_tbot_1',
+database:'tele_bot',
 port:3306,
 charset: 'utf8mb4'
 //collation: utf8mb4_bin

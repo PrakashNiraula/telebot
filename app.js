@@ -13,10 +13,11 @@ const subcatrouter=require('./routes/subcategory');
 const productrouter=require('./routes/product');
 
 require('./telereply')
+const cors = require('cors');
 var app = express();
 app.use(cors('*'))
 
-const cors = require('cors');
+
 
 require('./telereply')
 var app = express();
