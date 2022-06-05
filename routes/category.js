@@ -64,11 +64,11 @@ router.get("/:catid",async(req,res,next)=>{
 //     }
 // })
 
-router.delete("/category/:catid",async(req,res,next)=>{
+router.delete("/category/:cat_id",async(req,res,next)=>{
 
     try {
       
-        const res2=await db.deletecategoryByid(req.params.catid);
+        const res2=await db.deletecategoryByid(req.params.cat_id);
        res.json(res2);
     } catch (error) {
         next(error)
