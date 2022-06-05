@@ -5,16 +5,16 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors=require('cors')
 //const db=require('./db')
+var auth=require('./auth/auth')
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 const categoryrouter=require("./routes/category")
 const subcatrouter=require('./routes/subcategory');
 const productrouter=require('./routes/product');
-
 require('./telereply')
 var app = express();
-
+app.use(cors('*'))
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -25,13 +25,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(cors('*'))
+
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
-app.use('/category', categoryrouter);
-app.use('/subcategory', subcatrouter);
-app.use('/product', productrouter);
+app.use('/user', usersRouter);
+app.use('/category',auth.verifyUser, categoryrouter);
+app.use('/subcategory',auth.verifyUser, subcatrouter);
+app.use('/product',auth.verifyUser, productrouter);
 //app.use("/test",)
 
 // catch 404 and forward to error handler
