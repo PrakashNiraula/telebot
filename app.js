@@ -11,18 +11,12 @@ var usersRouter = require('./routes/users');
 const categoryrouter=require("./routes/category")
 const subcatrouter=require('./routes/subcategory');
 const productrouter=require('./routes/product');
+const orderrouter=require('./routes/order')
 
 require('./telereply')
 const cors = require('cors');
 var app = express();
 app.use(cors('*'))
-
-
-
-require('./telereply')
-var app = express();
-
-app.use(cors('*'));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -38,9 +32,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/user', usersRouter);
-app.use('/category',auth.verifyUser, categoryrouter);
-app.use('/subcategory',auth.verifyUser, subcatrouter);
-app.use('/product',auth.verifyUser, productrouter);
+app.use('/category',categoryrouter);
+app.use('/subcategory', subcatrouter);
+app.use('/product', productrouter);
+app.use('/orders', orderrouter);
 
 app.use(function(req, res, next) {
   next(createError(404));

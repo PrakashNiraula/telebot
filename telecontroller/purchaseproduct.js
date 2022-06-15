@@ -4,6 +4,7 @@ var client = require("../payment/coinbase");
 var coinbase = require("coinbase-commerce-node");
 const { response } = require("express");
 var deliverproduct=require("./deliverproduct");
+const { DATE } = require("mysql/lib/protocol/constants/types");
 
 
 
@@ -27,7 +28,8 @@ purchaseproduct.purchase=async (productid, bot, callback_query)=>{
        //delivering product
        var decreaseBalance=await usercontroller.decreaseBalance(result2[0].price,result[0].id);
      if(decreaseBalance.affectedRows==1){
-        deliverproduct.deliver(productid,"Payment Using Wallet",callback_query,bot);
+      const d = new Date();
+        deliverproduct.deliver(productid,"Payment Using Wallet on date:"+d.getFullYear()+"-"+(parseInt(d.getMonth())+1)+"-"+d.getDate(),callback_query,bot);
      }
        
        
