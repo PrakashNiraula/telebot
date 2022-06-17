@@ -11,7 +11,8 @@ var usersRouter = require('./routes/users');
 const categoryrouter=require("./routes/category")
 const subcatrouter=require('./routes/subcategory');
 const productrouter=require('./routes/product');
-const orderrouter=require('./routes/order')
+const orderrouter=require('./routes/order');
+var testrouter=require('./routes/test');
 
 require('./telereply')
 const cors = require('cors');
@@ -36,6 +37,7 @@ app.use('/category',categoryrouter);
 app.use('/subcategory', subcatrouter);
 app.use('/product', productrouter);
 app.use('/orders', orderrouter);
+app.use('/testtoken',testrouter);
 
 app.use(function(req, res, next) {
   next(createError(404));
